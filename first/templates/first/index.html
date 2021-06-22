@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1 style="text-align: center"><i>Hello Django ( Change Queue with VirtualDateNumber and Time )</i></h1>
+    <hr>
+    <h2>
+      <ul style="text-align: center">
+        {% for cell in cells %}
+          <li><a href="{% url 'change_queue' time=cell.time id=cell.id date=cell.date %}">V.D.N: {{cell.datepublished}} - Time: {{cell.time}}</a></li>
+          <b>~~~~~~~~~~~~~~~~~~~~~</b>
+        {% endfor %}
+      </ul>
+    </h2>
+    <hr>
+    <h2>
+      <form style="text-align: center; padding-top: 50px" action="." method="post">
+          {% csrf_token %}
+          ` Create Cell to manipulate `
+          {{ form.as_p }}
+          <button type="submit" name="button">Create</button>
+      </form>
+    </h2>
+  </body>
+</html>
