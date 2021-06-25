@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Example</title>
+  </head>
+  <body>
+      <h1>Example</h1>
+      <a href="{% url 'index' %}"><button type="button" name="button">Index</button></a>
+      <ul>
+        {% for i in examples %}
+        <hr>
+        <li>Title: {{i.title}}</li><br><br>
+        <img width="100px" height="80px" src="{{i.imageURL}}" alt=".... - {{i.title}}"><br><br>
+        <li>Price: {{i.price}} | In_Stock: {{i.in_stock}}</li>
+        <hr>
+        {% endfor %}
+      </ul>
+      <h2>
+        <div style="width: 50%; margin-left:400px">
+          <form style="text-align: center; padding-top: 50px" enctype="multipart/form-data" action="{% url 'example' %}" method="post">
+              {% csrf_token %}
+              <label for="title">Title</label><br>
+              <input type="text" required name="title"><br><br>
+              <label for="content">Content</label><br>
+              <textarea name="content" rows="8" cols="80"></textarea><br>
+              <label for="price">Price</label><br>
+              <input type="number" name="price" value="0"><br><br>
+              <label for="image">Image</label>
+              <input type="file" name="image"><br><br>
+              <label for="in_stock">In Stock</label>
+              <input type="checkbox" name="in_stock" value="on"><br><br>
+              <hr>
+              <button type="submit">Create</button>
+          </form>
+        </div>
+      </h2>
+  </body>
+</html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% load bootstrap3 %}
+{% bootstrap_messages %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Index</title>
   </head>
   <body>
     <h1 style="text-align: center"><i>Hello Django ( Change Queue with VirtualDateNumber and Time )</i></h1>
@@ -11,7 +13,7 @@
       <ul style="text-align: center">
         {% for cell in cells %}
           <li><a href="{% url 'change_queue' time=cell.time id=cell.id date=cell.date %}">V.D.N: {{cell.datepublished}} - Time: {{cell.time}}</a></li>
-          <b>~~~~~~~~~~~~~~~~~~~~~</b>
+          <b>~~~~~~~~~~~~~~~~~~~~~~~~~~</b>
         {% endfor %}
       </ul>
     </h2>
@@ -20,9 +22,10 @@
       <form style="text-align: center; padding-top: 50px" action="." method="post">
           {% csrf_token %}
           ` Create Cell to manipulate `
-          {{ form.as_p }}
+          {% bootstrap_form form %}
           <button type="submit" name="button">Create</button>
       </form>
     </h2>
+    <a href="{% url 'example' %}"><button type="button" name="button">Example</button></a>
   </body>
 </html>
