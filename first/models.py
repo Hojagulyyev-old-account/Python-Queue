@@ -33,6 +33,7 @@ class Example(models.Model):
     price = models.PositiveSmallIntegerField(default=0)
     in_stock = models.BooleanField(default=False)
 
+    @property
     def imageURL(self):
         if not self.image:
             return "No image"
@@ -41,3 +42,6 @@ class Example(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ('-id',)

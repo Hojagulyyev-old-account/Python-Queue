@@ -7,16 +7,7 @@
   <body>
       <h1>Example</h1>
       <a href="{% url 'index' %}"><button type="button" name="button">Index</button></a>
-      <ul>
-        {% for i in examples %}
-        <hr>
-        <li>Title: {{i.title}}</li><br><br>
-        <img width="100px" height="80px" src="{{i.imageURL}}" alt=".... - {{i.title}}"><br><br>
-        <li>Price: {{i.price}} | In_Stock: {{i.in_stock}}</li>
-        <hr>
-        {% endfor %}
-      </ul>
-      <h2>
+      <h6>
         <div style="width: 50%; margin-left:400px">
           <form style="text-align: center; padding-top: 50px" enctype="multipart/form-data" action="{% url 'example' %}" method="post">
               {% csrf_token %}
@@ -34,6 +25,16 @@
               <button type="submit">Create</button>
           </form>
         </div>
-      </h2>
+      </h6>
+      <hr>
+      <ul>
+        {% for i in examples %}
+        <hr>
+        <li>Title: {{i.title}}</li><br><br>
+        <img width="100px" height="80px" src="{{i.imageURL}}" alt=".... - {{i.title}}"><br><br>
+        <li>Price: {{i.price}} | In_Stock: {{i.in_stock}}</li>
+        <hr>
+        {% endfor %}
+      </ul>
   </body>
 </html>

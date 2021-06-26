@@ -87,22 +87,25 @@ class ExampleView(TemplateView):
 
     def post(self, request):
 
-        title = request.POST.get('title', '')
-        content = request.POST.get('content', '')
-        price = request.POST.get('price', 0)
-        image = request.FILES.get('image', '')
-        in_stock = request.POST.get('in_stock', False)
-        if in_stock:
-            in_stock = True
+        # title = request.POST.get('title', '')
+        # content = request.POST.get('content', '')
+        # price = request.POST.get('price', 0)
+        # image = request.FILES.get('image', '')
+        # in_stock = request.POST.get('in_stock', False)
+        # if in_stock:
+        #     in_stock = True
 
-        print(machine(rq_post=request.POST, rq_file=request.FILES))
+
+        mc = machine(rq_post=request.POST, rq_file=request.FILES)
+        if mc['in_stock']:
+            mc['in_stock']=True
 
         example = Example.objects.create(
-            title=title,
-            content=content,
-            price=price,
-            image=image,
-            in_stock=in_stock,
+            title=mc['title'],
+            content=mc['content'],
+            price=mc['price'],
+            image=mc['image'],
+            in_stock=mc['in_stock'],
         )
         example.save()
 
