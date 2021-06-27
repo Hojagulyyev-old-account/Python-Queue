@@ -8,6 +8,7 @@ from datetime import timedelta
 from django.views.generic import TemplateView
 import urllib
 from .post import machine
+from .validation import lenghtV, genericV
 # Create your views here.
 
 def index(request):
@@ -86,7 +87,6 @@ class ExampleView(TemplateView):
     #     return super().get(request, *args, **kwargs)
 
     def post(self, request):
-
         # title = request.POST.get('title', '')
         # content = request.POST.get('content', '')
         # price = request.POST.get('price', 0)
@@ -94,11 +94,30 @@ class ExampleView(TemplateView):
         # in_stock = request.POST.get('in_stock', False)
         # if in_stock:
         #     in_stock = True
-
-
         mc = machine(rq_post=request.POST, rq_file=request.FILES)
-        if mc['in_stock']:
-            mc['in_stock']=True
+        rs1 = lenghtV(request,
+                      e=mc['title'],
+                      l=6, content='Max length must 5 letters',
+                      name='title')
+
+        rs2 = lenghtV(request,
+                      e=mc['content'],
+                      l=10,
+                      content='Max length of content must 10 letters',
+                      name='content')
+
+        vc = genericV(request, rs1, rs2)
+        if vc != None:
+            return redirect('/example/?' + urllib.parse.urlencode(vc))
+
+        try:
+            if mc['in_stock']:
+                mc['in_stock']=True
+        except:
+            mc['in_stock']=False
+
+        # context = {'message':'Nädogry şahsyýetnamalar! Gaýtadan synanyşyň!'}
+        # return redirect('/?' + urllib.parse.urlencode(context))
 
         example = Example.objects.create(
             title=mc['title'],

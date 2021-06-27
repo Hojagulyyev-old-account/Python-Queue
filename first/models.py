@@ -3,14 +3,6 @@ from datetime import datetime
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 # Create your models here.
-# def validate_even(value):
-#     if value != '2021-06-25':
-#         raise ValidationError(
-#             '%(value)s is not an even number',
-#             params={'value': value},
-#         )
-
-# , validators=[validate_even]
 
 class Cell(models.Model):
     date = models.DateField(default=timezone.now)

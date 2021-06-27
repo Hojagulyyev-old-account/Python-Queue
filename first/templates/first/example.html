@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Example</title>
+    <style media="screen">
+      .val {
+        color: red
+      }
+      .card {
+        margin: 80px;
+      }
+    </style>
   </head>
   <body>
       <h1>Example</h1>
@@ -12,9 +20,11 @@
           <form style="text-align: center; padding-top: 50px" enctype="multipart/form-data" action="{% url 'example' %}" method="post">
               {% csrf_token %}
               <label for="title">Title</label><br>
-              <input type="text" required name="title"><br><br>
+              <input type="text" required name="title">
+              <br>{% if request.GET.title %}<span class="val">{{request.GET.title}}</span>{% endif %}<br>
               <label for="content">Content</label><br>
-              <textarea name="content" rows="8" cols="80"></textarea><br>
+              <textarea name="content" rows="8" cols="80"></textarea>
+              <br>{% if request.GET.content %}<span class="val">{{request.GET.content}}</span>{% endif %}<br>
               <label for="price">Price</label><br>
               <input type="number" name="price" value="0"><br><br>
               <label for="image">Image</label>
@@ -27,14 +37,12 @@
         </div>
       </h6>
       <hr>
-      <ul>
         {% for i in examples %}
-        <hr>
-        <li>Title: {{i.title}}</li><br><br>
-        <img width="100px" height="80px" src="{{i.imageURL}}" alt=".... - {{i.title}}"><br><br>
-        <li>Price: {{i.price}} | In_Stock: {{i.in_stock}}</li>
-        <hr>
+          <span class="card">
+          Title: {{i.title}}
+          <img width="80px" height="60px" src="{{i.imageURL}}" alt=".... - {{i.title}}">
+          Price: {{i.price}} | In_Stock: {{i.in_stock}}
+          </span>
         {% endfor %}
-      </ul>
   </body>
 </html>
