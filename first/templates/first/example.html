@@ -20,10 +20,10 @@
           <form style="text-align: center; padding-top: 50px" enctype="multipart/form-data" action="{% url 'example' %}" method="post">
               {% csrf_token %}
               <label for="title">Title</label><br>
-              <input type="text" required name="title">
+              <input value="{% if request.GET.titlevalue %}{{request.GET.titlevalue}}{% endif %}" type="text" required name="title">
               <br>{% if request.GET.title %}<span class="val">{{request.GET.title}}</span>{% endif %}<br>
               <label for="content">Content</label><br>
-              <textarea name="content" rows="8" cols="80"></textarea>
+              <textarea name="content" rows="8" cols="80">{% if request.GET.contentvalue %}{{request.GET.contentvalue}}{% endif %}</textarea>
               <br>{% if request.GET.content %}<span class="val">{{request.GET.content}}</span>{% endif %}<br>
               <label for="price">Price</label><br>
               <input type="number" name="price" value="0"><br><br>

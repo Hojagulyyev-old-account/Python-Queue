@@ -19,6 +19,7 @@ def genericV(request, *args, **kwargs):
         vc = {}
         for dict in vl:
             vc[f"{dict['name']}"] = dict['content']
+            vc[f"{dict['name']}value"] = dict['value']
 
         return vc
 
@@ -27,6 +28,7 @@ def genericV(request, *args, **kwargs):
 
 def lenghtV(request, *args, **kwargs):
     result = {
+                'value':kwargs['e'],
                 'bool':True,
                 'content':None,
                 'name':None,
