@@ -97,7 +97,8 @@ class ExampleView(TemplateView):
         mc = machine(rq_post=request.POST, rq_file=request.FILES)
         rs1 = lenghtV(request,
                       e=mc['title'],
-                      l=6, content='Max length must 5 letters',
+                      l=6,
+                      content='Max length must 5 letters',
                       name='title')
 
         rs2 = lenghtV(request,
@@ -106,7 +107,13 @@ class ExampleView(TemplateView):
                       content='Max length of content must 10 letters',
                       name='content')
 
-        vc = genericV(request, rs1, rs2)
+        rs3 = lenghtV(request,
+                      e=mc['price'],
+                      l=2,
+                      content='Max length of price must 2 numbers',
+                      name='price')
+
+        vc = genericV(request, rs1, rs2, rs3)
         if vc != None:
             return redirect('/example/?' + urllib.parse.urlencode(vc))
 
